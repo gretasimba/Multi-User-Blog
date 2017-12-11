@@ -1,0 +1,48 @@
+<div class="post">
+  <div class="post-heading">
+    <div class="post-title">
+      <label> subject: {{p.subject}} </label>
+    </div>
+	
+<!-- check if user is creator 
+	1. creator can edit, delete, add see comments
+	if not creator
+	2. create comments, put like/dislike
+	both can view comments
+	3. no login - read only view
+
+-->
+
+
+      <div class="post-creator">
+        {% if self %}
+          {% if user.key().id() == p.creator %}
+				{{p.likes|length}} Likes |
+			  <a href="/blog/editpost/{{p.key().id()}}/">Edit</a> |
+			  <a href="/blog/deletepost/{{p.key().id()}}/">Delete</a> |
+			  <a href="/blog/{{p.key().id()}}">Comments</a>
+		  {% else %}
+
+			{% if user.key().id() in p.likes %}
+				<a href="/blog/unlike/{{p.key().id()}}/">Unlike</a>|
+			{% else %}
+				<a href="/blog/like/{{p.key().id()}}/">Like</a> |
+			{% endif %}
+			{{p.likes|length}} Likes | 
+			
+			<a href="/blog/{{p.key().id()}}">View Comments</a> 
+         {% endif %}
+        {% endif %}
+
+    </div>
+
+    <div class="post-date">
+      {{p.created.strftime("%b %d, %Y")}}
+    </div>
+
+  <div class="post-content">
+    {{p._render_text | safe}}
+  </div>
+</div>
+</div>
+

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link type="text/css" rel="stylesheet" href="/static/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="/static/main.css" />
+  <title><a href="/blog">Multi User Blog</a></title>
+</head>
+
+<body>
+	<div class="container">
+		<header class="row">
+			<div class="col-md-12 text-center text-uppercase">
+				<h1><a href="/blog">Multi User Blog </a></h1>  
+			</div> 
+		</header>
+		<div class="row">	
+		{% if user %}
+			<div class="col-md-6 text-right">
+				Welcome {{user.name}} | <a href="/blog/logout">logout</a> 
+			</div>
+
+			<div class="col-md-6 text-right">
+				<a href="/blog/newpost">Add new post</a>
+			</div>
+		{% else %}
+			<div class="col-md-12 text-right text-uppercase">
+				<a href="/blog/login">Login</a>
+				|
+				<a href="/blog/signup">Register</a>
+				
+			</div>
+		{% endif %}
+		</div>
+		<div class="row">
+			<div class="col-md-12" id="content">
+			&nbsp
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12" id="content">
+				{% block content %}
+				{% endblock %}
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>
+
+
